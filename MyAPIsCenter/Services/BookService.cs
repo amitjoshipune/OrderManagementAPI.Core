@@ -23,6 +23,34 @@ namespace YourNamespace.Services
                 books = _books;
                 _cache.Set(CacheKey, books);
             }
+            //// For time being add some dummy books to test it
+            if (books == null || books.Count == 0)
+            {
+                SeedBooksForTesting().ForEach(book =>
+                {
+                    CreateBook(book);
+                });
+            }
+            return books;
+        }
+
+        protected List<Book> SeedBooksForTesting()
+        {
+            var books = new List<Book>();
+
+            for (int x =1; x<=10; x++)
+            {
+                var aBook = new Book()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Author = $"Author {x}",
+                    Title = $"Book Title {x}",
+                    Price = 100 * x,
+                    Description = @$"This is great book and it has {x} of stories. 
+                                       It can serve as guide. It worth Reading"
+                };
+                books.Add(aBook);
+            }
             return books;
         }
 
