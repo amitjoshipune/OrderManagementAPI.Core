@@ -1,4 +1,7 @@
 
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
+
 namespace ApiGateway
 {
     public class Program
@@ -8,6 +11,8 @@ namespace ApiGateway
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
+            builder.Services.AddOcelot(builder.Configuration);
 
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -28,6 +33,7 @@ namespace ApiGateway
 
             app.MapControllers();
 
+            app.UseOcelot().Wait();
             app.Run();
         }
     }
