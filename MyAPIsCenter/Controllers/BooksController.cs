@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using YourNamespace.Services;
 using YourNamespace.Models;
+using CommonServicesLib.Services;
 
 namespace YourNamespace.Controllers
 {
@@ -9,6 +10,7 @@ namespace YourNamespace.Controllers
     public class BooksController : ControllerBase
     {
         private readonly IBookService _bookService;
+        private readonly CacheService _cacheService;
 
         public BooksController(IBookService bookService)
         {
