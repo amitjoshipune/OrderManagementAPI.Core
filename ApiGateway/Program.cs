@@ -15,6 +15,16 @@ namespace ApiGateway
             builder.Services.AddOcelot(builder.Configuration);
 
             builder.Services.AddControllers();
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder=>builder.WithOrigins("http://localhost:5000", "https://localhost:5009")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    );
+            });
+
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
@@ -27,6 +37,8 @@ namespace ApiGateway
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("AllowSpecificOrigin");
 
             app.UseAuthorization();
 

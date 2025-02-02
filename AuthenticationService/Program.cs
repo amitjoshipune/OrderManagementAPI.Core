@@ -14,8 +14,19 @@ namespace AuthenticationService
 
             builder.Services.AddControllers();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("http://localhost:5000", "https://localhost:5009")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
+            });
+
+
             builder.Services.AddMemoryCache();
             builder.Services.AddScoped<ICacheService, CacheService>();
+
+            builder.Services.AddSingleton<IUserService, UserService>();
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
@@ -29,6 +40,8 @@ namespace AuthenticationService
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("AllowSpecificOrigin");
 
             app.UseAuthorization();
 

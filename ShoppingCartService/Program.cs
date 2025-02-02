@@ -14,8 +14,18 @@ namespace ShoppingCartService
 
             builder.Services.AddControllers();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("http://localhost:5000", "https://localhost:5009")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
+            });
+
             builder.Services.AddMemoryCache();
             builder.Services.AddScoped<ICacheService, CacheService>();
+
+            builder.Services.AddSingleton<ICartService, CartService>();
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
@@ -30,8 +40,9 @@ namespace ShoppingCartService
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            app.UseCors("AllowSpecificOrigin");
 
+            app.UseAuthorization();
 
             app.MapControllers();
 
