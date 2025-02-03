@@ -37,7 +37,7 @@ namespace CommonServicesLib.Services
             return books;
             */
             var products = _productRepository.GetAllProducts();
-            return products.Select(p => new Book { Id = p.Id, Title = p.Title, Author = p.Author , Description =p.Description});
+            return products.Select(p => new Book { Id = p.Id, Title = p.Title, Price = p.Price, Author = p.Author , Description =p.Description});
 
         }
 
@@ -65,7 +65,7 @@ namespace CommonServicesLib.Services
         {
             //return GetBooks().FirstOrDefault(b => b.Id == id);
             var product = _productRepository.GetProductById(id);
-            return new Book { Id = product.Id, Title = product.Title, Author = product.Author, Description = product.Description };
+            return new Book { Id = product.Id, Title = product.Title, Price = product.Price, Author = product.Author, Description = product.Description };
         }
 
         public void CreateBook(Book book)
@@ -82,8 +82,8 @@ namespace CommonServicesLib.Services
             _books.Add(book);
             _cache.Set(CacheKey, _books);
             */
-
-            var product = new Book { Id = book.Id, Title = book.Title, Price = book.Price ,  Author = book.Author,  Description = book.Description };
+            var  newBookId = Guid.NewGuid().ToString(); // Automatically generate Id
+            var product = new Book { Id = newBookId, Title = book.Title, Price = book.Price ,  Author = book.Author,  Description = book.Description };
             _productRepository.AddProduct(product);
 
         }
@@ -108,7 +108,7 @@ namespace CommonServicesLib.Services
             }
             */
 
-            var product = new Book { Id = book.Id, Title = book.Title, Price = book.Price, Description = book.Description };
+            var product = new Book { Id = book.Id, Title = book.Title, Price = book.Price, Author = book.Author, Description = book.Description };
             _productRepository.UpdateProduct(product);
         }
 

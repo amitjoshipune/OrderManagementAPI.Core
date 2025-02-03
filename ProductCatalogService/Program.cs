@@ -4,6 +4,7 @@ using CommonServicesLib.Services;
 
 using Microsoft.EntityFrameworkCore;
 using ProductCatalogService.Data;
+using ProductCatalogService.Middlewares;
 
 namespace ProductCatalogService
 {
@@ -30,8 +31,9 @@ namespace ProductCatalogService
             // Configure CORS
             builder.Services.AddCors(options =>
             {
+                //  builder => builder.WithOrigins("http://localhost:5000", "https://localhost:5009")
                 options.AddPolicy("AllowSpecificOrigin",
-                    builder=> builder.WithOrigins("http://localhost:5000", "https://localhost:5009")
+                    builder => builder.WithOrigins("http://localhost:5000", "https://localhost:5009")
                     .AllowAnyHeader()
                     .AllowAnyMethod());
             });
@@ -42,6 +44,7 @@ namespace ProductCatalogService
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
+            app.UseMiddleware<ExceptionMiddleware>();
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
