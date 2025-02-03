@@ -13,15 +13,18 @@ namespace CommonServicesLib.Services
     {
         private readonly List<User> _users = new List<User>();
         private readonly IMemoryCache _cache;
+        private readonly IUserRepository _userRepository;
         private const string CacheKey = "Users";
 
-        public UserService(IMemoryCache cache)
+        public UserService(IUserRepository userRepository, IMemoryCache cache)
         {
             _cache = cache;
+            _userRepository = userRepository;
         }
 
         public ServiceResult Register(UserDto userDto)
         {
+            /*
             if (_users.Any(u => u.Username == userDto.Username))
             {
                 return new ServiceResult { Success = false, Message = "Username already exists" };
@@ -37,10 +40,22 @@ namespace CommonServicesLib.Services
             _users.Add(user);
             _cache.Set(CacheKey, _users);
             return new ServiceResult { Success = true, Message = "User registered successfully" };
+            */
+
+            var user = new User
+            {
+                Id = Guid.NewGuid().ToString(),
+                Username = userDto.Username,
+                Password = userDto.Password, // Note: In a real application, always hash passwords
+                EmailId = userDto.EmailId   
+            };
+            var serviceResult = _userRepository.RegisterAsync(user);
+            return serviceResult;
         }
 
         public ServiceResult Login(UserDto userDto)
         {
+            /*
             var user = _users.FirstOrDefault(u => u.Username == userDto.Username && u.Password == userDto.Password);
             if (user == null)
             {
@@ -48,6 +63,16 @@ namespace CommonServicesLib.Services
             }
 
             return new ServiceResult { Success = true, Message = "Login successful" };
+            */
+
+            var user = new User
+            {
+                Username = userDto.Username,
+                Password = userDto.Password
+            };
+
+            var serviceResult = _userRepository.LoginAsync(user);
+            return serviceResult;
         }
     }
 }

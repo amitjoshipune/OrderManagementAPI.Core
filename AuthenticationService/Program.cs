@@ -1,6 +1,9 @@
 
+using AuthenticationService.Data;
+using AuthenticationService.Repositories;
 using CommonServicesLib.Contracts;
 using CommonServicesLib.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace AuthenticationService
 {
@@ -26,8 +29,13 @@ namespace AuthenticationService
             builder.Services.AddMemoryCache();
             builder.Services.AddScoped<ICacheService, CacheService>();
 
-            builder.Services.AddSingleton<IUserService, UserService>();
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IUserRepository,UserRepository>();
 
+            builder.Services.AddDbContext<SqlServerDbContext>(options=>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
