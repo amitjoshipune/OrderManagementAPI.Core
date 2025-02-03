@@ -2,6 +2,9 @@
 using CommonServicesLib.Contracts;
 using CommonServicesLib.Services;
 
+using Microsoft.EntityFrameworkCore;
+using ProductCatalogService.Data;
+
 namespace ProductCatalogService
 {
     public class Program
@@ -13,7 +16,18 @@ namespace ProductCatalogService
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddMemoryCache();
 
+            builder.Services.AddScoped<ICacheService, CacheService>();
+            // Register IBookService and IProductRepository
+            builder.Services.AddScoped<IBookService, BookService>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            // Configure DbContext
+            builder.Services.AddDbContext<ProductDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+            // Configure CORS
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigin",
@@ -21,14 +35,6 @@ namespace ProductCatalogService
                     .AllowAnyHeader()
                     .AllowAnyMethod());
             });
-
-            builder.Services.AddMemoryCache();
-            
-            
-            builder.Services.AddScoped<ICacheService, CacheService>();
-
-            builder.Services.AddSingleton<IBookService, BookService>();
-
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();

@@ -6,17 +6,21 @@ namespace CommonServicesLib.Services
 {
     public class BookService : IBookService
     {
+        private readonly IProductRepository _productRepository;
+
         private readonly List<Book> _books = new List<Book>();
         private readonly IMemoryCache _cache;
         private const string CacheKey = "Books";
 
-        public BookService(IMemoryCache cache)
+        public BookService(IProductRepository productRepository, IMemoryCache cache)
         {
+            _productRepository = productRepository;
             _cache = cache;
         }
 
         public IEnumerable<Book> GetBooks()
         {
+            /*
             if (!_cache.TryGetValue(CacheKey, out List<Book> books))
             {
                 books = _books;
@@ -31,6 +35,10 @@ namespace CommonServicesLib.Services
                 });
             }
             return books;
+            */
+            var products = _productRepository.GetAllProducts();
+            return products.Select(p => new Book { Id = p.Id, Title = p.Title, Author = p.Author , Description =p.Description});
+
         }
 
         protected List<Book> SeedBooksForTesting()
@@ -55,11 +63,14 @@ namespace CommonServicesLib.Services
 
         public Book GetBookById(string id)
         {
-            return GetBooks().FirstOrDefault(b => b.Id == id);
+            //return GetBooks().FirstOrDefault(b => b.Id == id);
+            var product = _productRepository.GetProductById(id);
+            return new Book { Id = product.Id, Title = product.Title, Author = product.Author, Description = product.Description };
         }
 
         public void CreateBook(Book book)
         {
+            /*
             book.Id = Guid.NewGuid().ToString();
 
             if (!_cache.TryGetValue(CacheKey, out List<Book> books))
@@ -70,10 +81,16 @@ namespace CommonServicesLib.Services
 
             _books.Add(book);
             _cache.Set(CacheKey, _books);
+            */
+
+            var product = new Book { Id = book.Id, Title = book.Title, Price = book.Price ,  Author = book.Author,  Description = book.Description };
+            _productRepository.AddProduct(product);
+
         }
 
         public void UpdateBook(Book book)
         {
+            /*
             if (!_cache.TryGetValue(CacheKey, out List<Book> books))
             {
                 books = _books;
@@ -89,10 +106,15 @@ namespace CommonServicesLib.Services
                 existingBook.Description = book.Description;
                 _cache.Set(CacheKey, _books);
             }
+            */
+
+            var product = new Book { Id = book.Id, Title = book.Title, Price = book.Price, Description = book.Description };
+            _productRepository.UpdateProduct(product);
         }
 
         public void DeleteBook(string id)
         {
+            /*
             if (!_cache.TryGetValue(CacheKey, out List<Book> books))
             {
                 books = _books;
@@ -104,6 +126,8 @@ namespace CommonServicesLib.Services
                 _books.Remove(book);
                 _cache.Set(CacheKey, _books);
             }
+            */
+            _productRepository.DeleteProduct(id);
         }
     }
 }
