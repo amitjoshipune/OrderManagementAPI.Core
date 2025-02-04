@@ -4,7 +4,7 @@ namespace CommonServicesLib.Contracts
 {
     public interface IUserService
     {
-        ServiceResult Register(UserDto userDto);
-        ServiceResult Login(UserDto userDto);
+        ServiceResult Register(RegisterDto userDto);
+        ServiceResult Login(LoginDto userDto);
     }
 }

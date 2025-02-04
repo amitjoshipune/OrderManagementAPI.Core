@@ -22,48 +22,24 @@ namespace CommonServicesLib.Services
             _userRepository = userRepository;
         }
 
-        public ServiceResult Register(UserDto userDto)
+        public ServiceResult Register(RegisterDto userDto)
         {
-            /*
-            if (_users.Any(u => u.Username == userDto.Username))
-            {
-                return new ServiceResult { Success = false, Message = "Username already exists" };
-            }
 
             var user = new User
             {
-                Id = Guid.NewGuid().ToString(),
+                UserId = Guid.NewGuid(),
                 Username = userDto.Username,
-                Password = userDto.Password // Note: In a real application, always hash passwords
-            };
-
-            _users.Add(user);
-            _cache.Set(CacheKey, _users);
-            return new ServiceResult { Success = true, Message = "User registered successfully" };
-            */
-
-            var user = new User
-            {
-                Id = Guid.NewGuid().ToString(),
-                Username = userDto.Username,
-                Password = userDto.Password, // Note: In a real application, always hash passwords
-                EmailId = userDto.EmailId   
+                Password = userDto.Password,
+                Email = userDto.Email,
+                DateOfBirth = userDto.DateOfBirth
             };
             var serviceResult = _userRepository.RegisterAsync(user);
             return serviceResult;
         }
 
-        public ServiceResult Login(UserDto userDto)
+        public ServiceResult Login(LoginDto userDto)
         {
-            /*
-            var user = _users.FirstOrDefault(u => u.Username == userDto.Username && u.Password == userDto.Password);
-            if (user == null)
-            {
-                return new ServiceResult { Success = false, Message = "Invalid username or password" };
-            }
-
-            return new ServiceResult { Success = true, Message = "Login successful" };
-            */
+            
 
             var user = new User
             {

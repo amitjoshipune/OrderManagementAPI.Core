@@ -19,8 +19,11 @@ namespace AuthenticationService.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Register(UserDto userDto)
+        public IActionResult Register([FromBody] RegisterDto userDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var result = _userService.Register(userDto);
             if (result.Success)
             {
@@ -30,8 +33,11 @@ namespace AuthenticationService.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login(UserDto userDto)
+        public IActionResult Login(LoginDto userDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var result = _userService.Login(userDto);
             if (result.Success)
             {
