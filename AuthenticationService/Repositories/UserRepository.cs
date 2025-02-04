@@ -36,9 +36,9 @@ namespace AuthenticationService.Repositories
                 var aUser = _dbContext.Users
                     .FirstOrDefault(u => u.Username == user.Username && u.Password == user.Password);
 
-                if (user == null)
+                if (aUser == null)
                     return new ServiceResult { Success = false, Message = "Invalid login attempt." };
-                if (user.Username == null)
+                if (aUser.Username == null)
                     return new ServiceResult { Success = false, Message = "Invalid login attempt." };
 
                 return new ServiceResult { Success = true, Message = "User logged in successfully." };
