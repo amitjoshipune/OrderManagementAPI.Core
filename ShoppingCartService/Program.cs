@@ -1,6 +1,9 @@
-
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using AutoMapper;
 using CommonServicesLib.Contracts;
 using CommonServicesLib.Services;
+using System.Text.Json.Serialization;
 
 namespace ShoppingCartService
 {
@@ -12,7 +15,19 @@ namespace ShoppingCartService
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+            }); 
+
+            builder.Services.AddSingleton<MongoDBContext>();
+            builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
+            builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
+            // Create a method to configure AutoMapper and avoid ambiguity
+            builder.Services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile<MappingProfile>();
+            }, typeof(Program));
 
             builder.Services.AddCors(options =>
             {
