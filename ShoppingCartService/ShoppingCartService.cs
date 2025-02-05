@@ -35,6 +35,10 @@ namespace ShoppingCartService
         public async Task UpdateCartAsync(ShoppingCartDto cartDto)
         {
             var cart = _mapper.Map<ShoppingCart>(cartDto);
+            // Ensure cart.Id is not modified
+            var existingCart = await _cartRepository.GetCartAsync(cart.UserId);
+            cart.ShoppingCartId = existingCart.ShoppingCartId;
+
             await _cartRepository.UpdateCartAsync(cart);
         }
     }

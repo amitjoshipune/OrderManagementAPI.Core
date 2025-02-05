@@ -6,10 +6,11 @@ namespace ShoppingCartService
     public class ShoppingCartRepository : IShoppingCartRepository
     {
         private readonly IMongoCollection<ShoppingCart> _carts;
-
+        private readonly MongoDBContext _context;
         public ShoppingCartRepository(MongoDBContext context)
         {
             _carts = context.Carts;
+            _context = context;
         }
         public async Task CreateCartAsync(ShoppingCart cart)
         {
@@ -29,7 +30,12 @@ namespace ShoppingCartService
         public async Task UpdateCartAsync(ShoppingCart cart)
         {
             var filter = Builders<ShoppingCart>.Filter.Eq("UserId" , cart.UserId);
-            await _carts.ReplaceOneAsync(filter, cart);
+            // Specify fields to update without altering `_id`
+            var update = Builders<ShoppingCart>.Update
+                .Set(c => c.Items, cart.Items);
+
+            await _context.Carts.UpdateOneAsync(filter, update);
+            //await _carts.ReplaceOneAsync(filter, cart);
         }
     }
 }
