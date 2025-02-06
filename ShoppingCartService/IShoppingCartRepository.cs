@@ -8,5 +8,6 @@ namespace ShoppingCartService
         Task CreateCartAsync(ShoppingCart cart);
         Task UpdateCartAsync(ShoppingCart cart);
         Task DeleteCartAsync(string userId);
+        Task<bool> ClearCartAsync(string userId);
     }
 }

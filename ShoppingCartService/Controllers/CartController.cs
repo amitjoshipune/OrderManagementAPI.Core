@@ -23,7 +23,7 @@ namespace ShoppingCartService.Controllers
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetCart(string userId)
         {
-            var cart = await _cartService.GetCartAsync(userId);
+            var cart = await _cartService.GetCartByUserIdAsync(userId);
             if (cart == null)
             {
                 return NotFound();

@@ -4,7 +4,9 @@ namespace CommonServicesLib.Contracts
 {
     public interface IOrderService
     {
-        IEnumerable<Order> GetOrdersByUserId(string userId);
-        void CreateOrder(Order order);
+        Task<OrderDto> CreateOrderAsync(OrderDto orderDto);
+        Task<bool> DeleteOrderAsync(string id);
+        Task<OrderDto> GetOrderByIdAsync(string id);
+        Task<bool> UpdateOrderAsync(string id, OrderDto orderDto);
     }
 }

@@ -5,30 +5,56 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace OrderService.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class OrdersController : ControllerBase
     {
         private readonly IOrderService _orderService;
-        private readonly ICacheService _cacheService;
-        public OrdersController(ICacheService cacheService, IOrderService orderService)
+
+        public OrdersController(IOrderService orderService)
         {
-            _cacheService = cacheService;
             _orderService = orderService;
         }
 
-        [HttpGet("user/{userId}")]
-        public IActionResult GetOrdersByUserId(string userId)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetOrder(string id)
         {
-            var orders = _orderService.GetOrdersByUserId(userId);
-            return Ok(orders);
+            var order = await _orderService.GetOrderByIdAsync(id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+            return Ok(order);
         }
 
         [HttpPost]
-        public IActionResult CreateOrder(Order order)
+        public async Task<IActionResult> CreateOrder([FromBody] OrderDto orderDto)
         {
-            _orderService.CreateOrder(order);
-            return CreatedAtAction(nameof(GetOrdersByUserId), new { userId = order.UserId }, order);
+            var order = await _orderService.CreateOrderAsync(orderDto);
+            return CreatedAtAction(nameof(GetOrder), new { id = order.Id }, order);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateOrder(string id, [FromBody] OrderDto orderDto)
+        {
+            var result = await _orderService.UpdateOrderAsync(id, orderDto);
+            if (!result)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteOrder(string id)
+        {
+            var result = await _orderService.DeleteOrderAsync(id);
+            if (!result)
+            {
+                return NotFound();
+            }
+            return NoContent();
         }
     }
+
 }

@@ -12,6 +12,12 @@ namespace ShoppingCartService
             _carts = context.Carts;
             _context = context;
         }
+
+        public Task<bool> ClearCartAsync(string userId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task CreateCartAsync(ShoppingCart cart)
         {
             await _carts.InsertOneAsync(cart);
