@@ -41,6 +41,7 @@ namespace CommonServicesLib.Services
         {
             return new Order
             {
+                Id = orderDto.Id,
                 UserId = orderDto.UserId,
                 Items = orderDto.Items.Select(i => new OrderItem { ProductId = i.ProductId, Quantity = i.Quantity, Price = i.Price }).ToList(),
                 TotalAmount = orderDto.TotalAmount
@@ -51,6 +52,7 @@ namespace CommonServicesLib.Services
         {
             return new OrderDto
             {
+                Id = order.Id,
                 UserId = order.UserId,
                 Items = order.Items.Select(i => new OrderItemDto { ProductId = i.ProductId, Quantity = i.Quantity, Price = i.Price }).ToList(),
                 TotalAmount = order.TotalAmount
