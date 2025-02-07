@@ -24,9 +24,9 @@ namespace OrderService
 
             builder.Services.AddMemoryCache();
             builder.Services.AddSingleton<ICacheService, CacheService>();
+            
+            builder.Services.AddSingleton<IOrderRepository, OrderRepository> ();
             builder.Services.AddSingleton<IOrderService, OrdersService>();
-
-
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
