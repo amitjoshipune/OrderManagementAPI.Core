@@ -101,20 +101,27 @@ namespace ShoppingCartService.Controllers
             return NoContent();
         }
 
-        /*
-        [HttpDelete("{userId}/remove/{bookId}")]
-        public IActionResult RemoveFromCart(string userId, string bookId)
+        [HttpPost("{userId}/checkout")]
+        public async Task<IActionResult> Checkout(string userId, CheckoutDto checkoutDto)
         {
-            _cartService.RemoveFromCart(userId, bookId);
-            return NoContent();
+            var result = await _cartService.CheckoutAsync(checkoutDto);
+            return Ok(result);
         }
 
-        [HttpPost("{userId}/checkout")]
-        public IActionResult Checkout(string userId)
-        {
-            _cartService.Checkout(userId);
-            return NoContent();
+            /*
+            [HttpDelete("{userId}/remove/{bookId}")]
+            public IActionResult RemoveFromCart(string userId, string bookId)
+            {
+                _cartService.RemoveFromCart(userId, bookId);
+                return NoContent();
+            }
+
+            [HttpPost("{userId}/checkout")]
+            public IActionResult Checkout(string userId)
+            {
+                _cartService.Checkout(userId);
+                return NoContent();
+            }
+            */
         }
-        */
     }
-}
