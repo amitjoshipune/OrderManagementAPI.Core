@@ -3,11 +3,11 @@ using CommonServicesLib.Models;
 
 namespace CommonServicesLib.Services
 {
-    public class OrderService : IOrderService
+    public class OrdersService : IOrderService
     {
         private readonly IOrderRepository _orderRepository;
 
-        public OrderService(IOrderRepository orderRepository)
+        public OrdersService(IOrderRepository orderRepository)
         {
             _orderRepository = orderRepository;
         }

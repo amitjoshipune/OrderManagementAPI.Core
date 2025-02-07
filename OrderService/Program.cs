@@ -23,8 +23,8 @@ namespace OrderService
             });
 
             builder.Services.AddMemoryCache();
-            builder.Services.AddScoped<ICacheService, CacheService>();
-            builder.Services.AddSingleton<IOrderService, CommonServicesLib.Services.OrderService>();
+            builder.Services.AddSingleton<ICacheService, CacheService>();
+            builder.Services.AddSingleton<IOrderService, OrdersService>();
 
 
 
