@@ -4,6 +4,8 @@ using AutoMapper;
 using CommonServicesLib.Contracts;
 using CommonServicesLib.Services;
 using System.Text.Json.Serialization;
+using CommonServicesLib;
+using Microsoft.Extensions.Configuration;
 
 namespace ShoppingCartService
 {
@@ -18,7 +20,11 @@ namespace ShoppingCartService
             builder.Services.AddControllers().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-            }); 
+            });
+
+            // Register Kafka settings
+            builder.Services.Configure<KafkaSettings>(builder.Configuration.GetSection("Kafka"));
+
 
             builder.Services.AddSingleton<MongoDBContext>();
             builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();

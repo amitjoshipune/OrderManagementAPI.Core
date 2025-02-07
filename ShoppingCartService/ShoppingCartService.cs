@@ -10,14 +10,14 @@ namespace ShoppingCartService
     {
         private readonly IShoppingCartRepository _cartRepository;
         private readonly IMapper _mapper;
-        private readonly IOrderService _orderService;
-        private CommonServicesLib.RabbitMqClient _rabbitMqClient;
+        //private readonly IOrderService _orderService;
+        //private CommonServicesLib.RabbitMqClient _rabbitMqClient;
 
-        public ShoppingCartService(IShoppingCartRepository cartRepository, IMapper mapper , IOrderService orderService)
+        public ShoppingCartService(IShoppingCartRepository cartRepository, IMapper mapper /*, IOrderService orderService*/)
         {
             _cartRepository = cartRepository;
             _mapper = mapper;
-            _orderService = orderService;
+            //_orderService = orderService;
         }
 
         public async Task<bool> CheckoutAsync(CheckoutDto checkoutDto)
@@ -59,10 +59,10 @@ namespace ShoppingCartService
                 TotalAmount = checkoutDto.TotalAmount
             };
 
-            var order = await _orderService.CreateOrderAsync(orderDto);
+           // var order = await _orderService.CreateOrderAsync(orderDto);
 
             // Publish order creation event to RabbitMQ
-            _rabbitMqClient.Publish("orderQueue", $"Order Created: {order.Id}");
+           // _rabbitMqClient.Publish("orderQueue", $"Order Created: {order.Id}");
 
             // Clear the cart
             var result = await ClearCartAsync(checkoutDto.UserId);
