@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using RabbitMQ.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace CommonServicesLib
 {
@@ -15,7 +13,7 @@ namespace CommonServicesLib
 
         public RabbitMqClient(string hostname)
         {
-            var factory = new ConnectionFactory() { HostName = hostname };
+            //var factory = new ConnectionFactory() { HostName = hostname };
             //_connection = factory.CreateConnection();
             //_channel = _connection.CreateModel();
         }
@@ -33,5 +31,4 @@ namespace CommonServicesLib
             //_connection.Close();
         }
     }
-
 }
