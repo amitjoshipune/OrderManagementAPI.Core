@@ -9,9 +9,10 @@ namespace CommonServicesLib.Contracts
 {
     public interface IOrderRepository
     {
-        Task<Order> GetOrderByIdAsync(string id);
+        Task<Order?> GetOrderByIdAsync(string orderid);
         Task<Order> CreateOrderAsync(Order order);
         Task<bool> UpdateOrderAsync(Order order);
-        Task<bool> DeleteOrderAsync(string id);
+        Task<IEnumerable<Order>?> GetOrdersByUserIdAsync(string userId);
+        Task<bool> DeleteOrderAsync(string orderid);
     }
 }

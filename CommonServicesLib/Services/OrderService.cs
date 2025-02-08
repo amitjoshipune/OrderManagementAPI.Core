@@ -12,9 +12,9 @@ namespace CommonServicesLib.Services
             _orderRepository = orderRepository;
         }
 
-        public async Task<OrderDto> GetOrderByIdAsync(string id)
+        public async Task<OrderDto?> GetOrderByIdAsync(string orderid)
         {
-            var order = await _orderRepository.GetOrderByIdAsync(id);
+            var order = await _orderRepository.GetOrderByIdAsync(orderid);
             return MapToOrderDto(order);
         }
 
@@ -25,16 +25,35 @@ namespace CommonServicesLib.Services
             return MapToOrderDto(createdOrder);
         }
 
-        public async Task<bool> UpdateOrderAsync(string id, OrderDto orderDto)
+        public async Task<bool> UpdateOrderAsync(string orderid, OrderDto orderDto)
         {
             var order = MapToOrder(orderDto);
-            order.Id = id;
+            order.Id = orderid;
             return await _orderRepository.UpdateOrderAsync(order);
         }
 
-        public async Task<bool> DeleteOrderAsync(string id)
+        public async Task<bool> DeleteOrderAsync(string orderid)
         {
-            return await _orderRepository.DeleteOrderAsync(id);
+            return await _orderRepository.DeleteOrderAsync(orderid);
+        }
+
+        public async Task<IEnumerable<OrderDto>?> GetOrderByUserIdAsync(string userId)
+        {
+            var OrderDtos = new List<OrderDto>();
+
+            var ordersByUser = await _orderRepository.GetOrdersByUserIdAsync(userId);
+            if (ordersByUser != null && ordersByUser.Any())
+            {
+                foreach (var aOrder in ordersByUser)
+                {
+                    OrderDtos.Add(MapToOrderDto(aOrder));
+                }
+                return OrderDtos;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         private Order MapToOrder(OrderDto orderDto)
@@ -59,7 +78,7 @@ namespace CommonServicesLib.Services
             };
         }
 
-
+       
     }
 
 }

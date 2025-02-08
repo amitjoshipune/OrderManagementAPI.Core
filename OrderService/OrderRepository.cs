@@ -7,9 +7,9 @@ namespace OrderService
     {
         private readonly List<Order> _orders = new List<Order>();
 
-        public async Task<Order> GetOrderByIdAsync(string id)
+        public async Task<Order?> GetOrderByIdAsync(string orderid)
         {
-            return await Task.FromResult(_orders.FirstOrDefault(o => o.Id == id));
+            return await Task.FromResult(_orders.FirstOrDefault(o => o.Id == orderid));
         }
 
         public async Task<Order> CreateOrderAsync(Order order)
@@ -32,9 +32,9 @@ namespace OrderService
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> DeleteOrderAsync(string id)
+        public async Task<bool> DeleteOrderAsync(string orderid)
         {
-            var order = _orders.FirstOrDefault(o => o.Id == id);
+            var order = _orders.FirstOrDefault(o => o.Id == orderid);
             if (order == null)
             {
                 return await Task.FromResult(false);
@@ -43,10 +43,11 @@ namespace OrderService
             return await Task.FromResult(true);
         }
 
-        public async Task<IEnumerable<Order>> GetOrdersByUserIdAsync(string userId)
+        public async Task<IEnumerable<Order>?> GetOrdersByUserIdAsync(string userId)
         {
             return await Task.FromResult(_orders.Where(o => o.UserId == userId).ToList());
         }
+
     }
 
 }
