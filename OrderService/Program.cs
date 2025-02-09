@@ -12,7 +12,10 @@ namespace OrderService
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+            });
 
             builder.Services.AddCors(options =>
             {
@@ -23,6 +26,9 @@ namespace OrderService
             });
 
             builder.Services.AddMemoryCache();
+
+            builder.Services.AddSingleton<MongoDBContext>();
+
             builder.Services.AddSingleton<ICacheService, CacheService>();
             
             builder.Services.AddSingleton<IOrderRepository, OrderRepository> ();

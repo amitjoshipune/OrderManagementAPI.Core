@@ -27,6 +27,17 @@ namespace OrderService.Controllers
             return Ok(order);
         }
 
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> GetOrdersByUserId(string userId)
+        {
+            var orders = await _orderService.GetOrderByUserIdAsync(userId);
+            if (orders == null || !orders.Any())
+            {
+                return NotFound();
+            }
+            return Ok(orders);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateOrder([FromBody] OrderDto orderDto)
         {

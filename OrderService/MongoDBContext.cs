@@ -13,6 +13,6 @@ namespace OrderService
             _databse = client.GetDatabase("MyDatabase");
         }
 
-        public IMongoCollection<Order> Carts => _databse.GetCollection<Order>("Orders");
+        public IMongoCollection<Order> Orders => _databse.GetCollection<Order>("Orders");
     }
 }
