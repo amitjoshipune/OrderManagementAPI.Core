@@ -1,0 +1,36 @@
+version: '3.4'
+
+services:
+  authenticationservice:
+    image: ${DOCKER_REGISTRY-}authenticationservice
+    build:
+      context: .
+      dockerfile: AuthenticationService\Dockerfile
+
+  apigateway:
+    image: ${DOCKER_REGISTRY-}apigateway
+    build:
+      context: .
+      dockerfile: ApiGateway\Dockerfile
+
+
+  orderservice:
+    image: ${DOCKER_REGISTRY-}orderservice
+    build:
+      context: .
+      dockerfile: OrderService\Dockerfile
+
+
+  productcatalogservice:
+    image: ${DOCKER_REGISTRY-}productcatalogservice
+    build:
+      context: .
+      dockerfile: ProductCatalogService\Dockerfile
+
+
+  shoppingcartservice:
+    image: ${DOCKER_REGISTRY-}shoppingcartservice
+    build:
+      context: .
+      dockerfile: ShoppingCartService\Dockerfile
+
