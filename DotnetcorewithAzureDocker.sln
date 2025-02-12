@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductCatalogService", "Pr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingCartService", "ShoppingCartService\ShoppingCartService.csproj", "{FD4AA584-34B0-4612-BA73-DA8C0F3896C6}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{F5461BD3-A12C-4CD9-90E9-CF5268570A54}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D64B8863-7493-4715-B552-3FDEEFC16333}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,10 @@ Global
 		{FD4AA584-34B0-4612-BA73-DA8C0F3896C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD4AA584-34B0-4612-BA73-DA8C0F3896C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD4AA584-34B0-4612-BA73-DA8C0F3896C6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F5461BD3-A12C-4CD9-90E9-CF5268570A54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F5461BD3-A12C-4CD9-90E9-CF5268570A54}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F5461BD3-A12C-4CD9-90E9-CF5268570A54}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F5461BD3-A12C-4CD9-90E9-CF5268570A54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D64B8863-7493-4715-B552-3FDEEFC16333}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D64B8863-7493-4715-B552-3FDEEFC16333}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D64B8863-7493-4715-B552-3FDEEFC16333}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D64B8863-7493-4715-B552-3FDEEFC16333}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

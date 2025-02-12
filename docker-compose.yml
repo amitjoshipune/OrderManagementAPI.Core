@@ -1,36 +1,42 @@
-version: '3.4'
-
 services:
-  authenticationservice:
-    image: ${DOCKER_REGISTRY-}authenticationservice
-    build:
-      context: .
-      dockerfile: AuthenticationService\Dockerfile
-
   apigateway:
-    image: ${DOCKER_REGISTRY-}apigateway
     build:
       context: .
-      dockerfile: ApiGateway\Dockerfile
+      dockerfile: ApiGateway/Dockerfile
+    ports:
+      - "5009:5009" # Port mapping for the API Gateway
+      - "8080:8080" # Port mapping for debug container
+      - "8081:8081" # Port mapping for additional services if needed
+    depends_on:
+      - authenticationservice
+      - orderservice
+      - productcatalogservice
+      - shoppingcartservice
 
+  authenticationservice:
+    build:
+      context: .
+      dockerfile: AuthenticationService/Dockerfile
+    ports:
+      - "5002:80" # Port mapping for authentication service
 
   orderservice:
-    image: ${DOCKER_REGISTRY-}orderservice
     build:
       context: .
-      dockerfile: OrderService\Dockerfile
-
+      dockerfile: OrderService/Dockerfile
+    ports:
+      - "5008:80" # Port mapping for order service
 
   productcatalogservice:
-    image: ${DOCKER_REGISTRY-}productcatalogservice
     build:
       context: .
-      dockerfile: ProductCatalogService\Dockerfile
-
+      dockerfile: ProductCatalogService/Dockerfile
+    ports:
+      - "5004:80" # Port mapping for product catalog service
 
   shoppingcartservice:
-    image: ${DOCKER_REGISTRY-}shoppingcartservice
     build:
       context: .
-      dockerfile: ShoppingCartService\Dockerfile
-
+      dockerfile: ShoppingCartService/Dockerfile
+    ports:
+      - "5006:80" # Port mapping for shopping cart service
