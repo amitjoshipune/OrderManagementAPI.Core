@@ -26,7 +26,7 @@ namespace ProductCatalogService
             // Configure DbContext
             builder.Services.AddDbContext<ProductDbContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("AzureDBConnection_Products")); 
             });
             // Configure CORS
             builder.Services.AddCors(options =>

@@ -34,7 +34,7 @@ namespace AuthenticationService
 
             builder.Services.AddDbContext<SqlServerDbContext>(options=>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("AzureDBConnection_Users"));
             });
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             //builder.Services.AddOpenApi();
