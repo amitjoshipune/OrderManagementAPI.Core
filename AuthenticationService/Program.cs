@@ -1,6 +1,7 @@
 
 using AuthenticationService.Data;
 using AuthenticationService.Repositories;
+using AuthenticationService.Services;
 using CommonServicesLib.Contracts;
 using CommonServicesLib.Services;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +37,8 @@ namespace AuthenticationService
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("AzureDBConnection_Users"));
             });
+
+            builder.Services.AddScoped<IAzureServiceBusClient , AzureServiceBusClient>();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             //builder.Services.AddOpenApi();
 
