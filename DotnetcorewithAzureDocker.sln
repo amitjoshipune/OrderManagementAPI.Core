@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingCartService", "Shop
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D64B8863-7493-4715-B552-3FDEEFC16333}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureServiceBusProcessing", "AzureServiceBusProcessing\AzureServiceBusProcessing.csproj", "{509C321B-CC25-4DC0-8723-D633F4F2A826}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{D64B8863-7493-4715-B552-3FDEEFC16333}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D64B8863-7493-4715-B552-3FDEEFC16333}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D64B8863-7493-4715-B552-3FDEEFC16333}.Release|Any CPU.Build.0 = Release|Any CPU
+		{509C321B-CC25-4DC0-8723-D633F4F2A826}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{509C321B-CC25-4DC0-8723-D633F4F2A826}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{509C321B-CC25-4DC0-8723-D633F4F2A826}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{509C321B-CC25-4DC0-8723-D633F4F2A826}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
