@@ -15,6 +15,7 @@ spec:
       containers:
       - name: auth-service
         image: authv1:latest
+        imagePullPolicy: Never  # Ensure this line is added
         ports:
         - containerPort: 8080
         env:
